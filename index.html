@@ -13,33 +13,30 @@
     <link rel="stylesheet" href="style.css">
 
     <!-- favicon -->
-    <link rel="shortcut icon" href="img/favicon.jpeg" type="image/x-icon">
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
 
     <!-- boxicons cdn link -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js"></script>
 </head>
 
 <body>
 
     <div class="image__login">
-        <img src="img/instagramimg.jpeg" alt="">
+        <img src="img/instagramimg.png" alt="">
     </div>
 
     <div class="insta__form">
 
         <div class="login__form">
-            <img src="img/instalogo.jpeg">
+            <img src="img/instalogo.png">
 
-            <form class="form" id="loginForm">
+            <form class="form">
 
-                <input type="text" id="email" placeholder="Phone number, username, or email">
-                <input type="password" id="password" placeholder="Password">
+                <input type="text" placeholder="Phone number, username, or email">
+                <input type="text" placeholder="Password">
 
-                <button type="button" onclick="loginUser()">
+                <button>
                     Log in
                 </button>
                 
@@ -56,47 +53,13 @@
                 Forget Password ?
             </span>
 
+
         </div>
+
+
 
     </div>
 
-    <script>
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js";
-
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyCSY64wArhT-nTe5nBp5eYVgeFkVJzrDKs",
-            authDomain: "dddd-1a193.firebaseapp.com",
-            projectId: "dddd-1a193",
-            storageBucket: "dddd-1a193.appspot.com",
-            messagingSenderId: "474012630970",
-            appId: "1:474012630970:web:8f4531d1597911cc1fe783"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth();
-
-        function loginUser() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    // Signed in 
-                    const user = userCredential.user;
-                    alert('Login successful');
-                    // Redirect or do something with the signed-in user
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    alert(`Error: ${errorMessage}`);
-                });
-        }
-    </script>
 </body>
 
 </html>
