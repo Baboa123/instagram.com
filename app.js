@@ -1,12 +1,12 @@
 // Firebase konfigurácia
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAb5xjaKFag0tikpz0GJFjDotOZwKkz_DE",
+  authDomain: "instagram-2bfa4.firebaseapp.com",
+  databaseURL: "https://instagram-2bfa4-default-rtdb.firebaseio.com",
+  projectId: "instagram-2bfa4",
+  storageBucket: "instagram-2bfa4.appspot.com",
+  messagingSenderId: "540606223972",
+  appId: "1:540606223972:web:ce3df05e186435b9c3b171"
 };
 
 // Inicializácia Firebase
