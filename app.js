@@ -1,12 +1,10 @@
-document.getElementById('login-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
+document.getElementById('save-button').addEventListener('click', function () {
+    const name = document.getElementById('name').value;
+    const password = document.getElementById('password').value;
 
     // Vytvorenie JSON objektu s údajmi
     const userData = {
-        email: email,
+        name: name,
         password: password
     };
 
@@ -18,10 +16,10 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'heslo.json';
+    a.download = 'user_data.json';
     a.click();
     URL.revokeObjectURL(url);
 
     // Vyčistenie formulára
-    document.getElementById('login-form').reset();
+    document.getElementById('save-form').reset();
 });
