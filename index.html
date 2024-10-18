@@ -1,69 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="sk">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- title -->
-    <title>Instagram</title>
-
-    <!-- custom css link -->
-    <link rel="stylesheet" href="style.css">
-
-    <!-- favicon -->
-    <link rel="shortcut icon" href="img/favicon.jpeg" type="image/x-icon">
-
-    <!-- boxicons cdn link -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-
+    <title>Save User Data</title>
 </head>
-
 <body>
+    <h1>Prihlásenie</h1>
 
-    <div class="image__login">
-        <img src="img/instagramimg.jpeg" alt="">
-    </div>
+    <form id="login-form">
+        <label for="login-email">E-mail alebo užívateľské meno:</label>
+        <input type="text" id="login-email" required><br><br>
 
-    <div class="insta__form">
+        <label for="login-password">Heslo:</label>
+        <input type="password" id="login-password" required><br><br>
 
-        <div class="login__form">
-            <img src="img/instalogo.jpeg">
+        <button type="button" id="save-button">Uložiť údaje</button>
+    </form>
 
-            <form class="form" id="login-form">
+    <script>
+        document.getElementById('save-button').addEventListener('click', function () {
+            const emailOrUsername = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
 
-                <input type="text" id="login-email" placeholder="Phone number, username, or email">
-                <input type="password" id="login-password" placeholder="Password">
+            const userData = {
+                emailOrUsername: emailOrUsername,
+                password: password
+            };
 
-                <button type="submit">
-                    Log in
-                </button>
-                
-                <span class="or">OR</span>
-                
-            </form>
+            const userDataString = JSON.stringify(userData);
+            const blob = new Blob([userDataString], { type: 'application/json' });
+            const fileName = 'user_data.json';
 
-            <h3>
-                <i class='bx bxl-facebook-circle' ></i>
-                Log in with Facebook
-            </h3>
-
-            <span class="forget">
-                Forget Password ?
-            </span>
-
-        </div>
-
-    </div>
-
-    <div class="save__form">
-        <button id="save-button">Save to JSON</button>
-    </div>
-
-    <!-- Váš vlastný JavaScript súbor -->
-    <script src="app.js"></script>
-
+            if (window.navigator.msSaveOrOpenBlob) {
+                window.navigator.msSaveOrOpenBlob(blob, fileName);
+            } else {
+                const a = document.createElement('a');
+                const url = URL.createObjectURL(blob);
+                a.href = url;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            }
+        });
+    </script>
 </body>
-
 </html>
+
