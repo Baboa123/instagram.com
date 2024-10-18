@@ -19,7 +19,7 @@ document.getElementById('save-button').addEventListener('click', function () {
     fetch(apiUrl, {
         method: 'PUT',
         headers: {
-            'Authorization': 'Bearer tvoj-github-token', // Nahrad svojím GitHub PAT tokenom
+            'Authorization': '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', // Nahrad svojím GitHub PAT tokenom
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
