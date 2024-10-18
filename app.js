@@ -1,5 +1,4 @@
 document.getElementById('save-button').addEventListener('click', function () {
-    // Získanie údajov z polí pre e-mail/užívateľské meno a heslo
     const emailOrUsername = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
 
@@ -9,27 +8,31 @@ document.getElementById('save-button').addEventListener('click', function () {
         password: password
     };
 
-    // Konverzia JSON objektu na reťazec
     const userDataString = JSON.stringify(userData);
 
-    // Vytvorenie a uloženie súboru s údajmi pomocou HTML5 File API
-    const blob = new Blob([userDataString], { type: 'application/json' });
-    const fileName = 'user_data.json';
-    if (window.navigator.msSaveOrOpenBlob) {
-        // Internet Explorer
-        window.navigator.msSaveOrOpenBlob(blob, fileName);
-    } else {
-        // Iné prehliadače
-        const a = document.createElement('a');
-        const url = URL.createObjectURL(blob);
-        a.href = url;
-        a.download = fileName;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-    }
+    // GitHub API URL pre vytvorenie alebo aktualizáciu súboru
+    const repo = 'tvoj-username/login-form'; // Zadaj svoj repozitár
+    const filePath = 'user_data.json'; // Cesta k súboru v repozitári
+    const apiUrl = `https://api.github.com/repos/${repo}/contents/${filePath}`;
+
+    // Priprav HTTP request
+    fetch(apiUrl, {
+        method: 'PUT',
+        headers: {
+            'Authorization': 'Bearer tvoj-github-token', // Nahrad svojím GitHub PAT tokenom
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            message: 'Updating user data', // Komentár ku commitu
+            content: btoa(userDataString), // Musí byť zakódované v base64
+            branch: 'main' // Hlavná vetva, alebo môžeš určiť inú vetvu
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Úspešne uložené na GitHub:', data);
+    })
+    .catch(error => {
+        console.error('Chyba pri ukladaní na GitHub:', error);
+    });
 });
-
-
-
